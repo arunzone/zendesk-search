@@ -47,6 +47,33 @@ class SearchServiceTest {
   }
 
   @Test
+  void shouldReturnMatchingUserBySharedFlag() {
+    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+
+    List<User> users = searchService.findUsersBy("shared", "false");
+
+    assertThat(users, contains(userFrancisca()));
+  }
+
+  @Test
+  void shouldReturnMatchingUserByTag() {
+    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+
+    List<User> users = searchService.findUsersBy("tags", "Rowe");
+
+    assertThat(users, contains(userRose()));
+  }
+
+  @Test
+  void shouldReturnMatchingAllUsersByActiveState() {
+    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+
+    List<User> users = searchService.findUsersBy("active", "true");
+
+    assertThat(users, contains(userFrancisca(), userRose()));
+  }
+
+  @Test
   void shouldReturnEmptyListWhenNotMatched() {
     when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
 
