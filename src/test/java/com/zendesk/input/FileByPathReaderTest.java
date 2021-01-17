@@ -25,11 +25,10 @@ class FileByPathReaderTest {
 
   @Test
   void shouldThrowExceptionWhenNotAFile() {
-    File inputFile = new File("src/test/resources");
     FileByPathReader reader = new FileByPathReader();
 
     InvalidInputFileException invalidInputFileException = assertThrows(InvalidInputFileException.class, () -> {
-      reader.fileFromPath(inputFile.getAbsolutePath());
+      reader.fileFromPath("src/test/resources");
     });
 
     assertThat(invalidInputFileException.getMessage(), endsWith("src/test/resources"));
