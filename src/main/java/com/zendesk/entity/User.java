@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class User {
   @JsonAlias({"_id"})
-  private long id;
+  private Long id;
   private String url;
   @JsonAlias({"external_id"})
   private String externalId;

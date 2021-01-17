@@ -11,7 +11,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 public class FileInputReader {
-  private FileByPathReader fileByPathReader;
+  private final FileByPathReader fileByPathReader;
 
   public FileInputReader(FileByPathReader fileByPathReader) {
     this.fileByPathReader = fileByPathReader;
