@@ -74,6 +74,15 @@ class SearchServiceTest {
   }
 
   @Test
+  void shouldReturnAllUsersOnEmptyInput() {
+    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+
+    List<User> users = searchService.findUsersBy("active", "");
+
+    assertThat(users, contains(userFrancisca(), userRose()));
+  }
+
+  @Test
   void shouldReturnEmptyListWhenNotMatched() {
     when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
 

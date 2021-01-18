@@ -15,7 +15,11 @@ public class SearchService {
   }
 
   public List<User> findUsersBy(String fieldName, String value) {
-    return repository.users().stream().filter(user ->
+    List<User> users = repository.users();
+    if (value.isEmpty()) {
+      return users;
+    }
+    return users.stream().filter(user ->
         new ExactMatchPredicateFactory().match(user, fieldName, value)
     ).collect(toList());
   }
