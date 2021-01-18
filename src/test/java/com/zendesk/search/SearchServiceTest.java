@@ -30,72 +30,72 @@ class SearchServiceTest {
 
   @Test
   void shouldReturnMatchingUserById() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("id", "4");
+    List<User> users = searchService.findEntitiesBy("id", "4");
 
     assertThat(users, contains(userRose()));
   }
 
   @Test
   void shouldReturnMatchingUserByName() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("name", "Francisca Rasmussen");
+    List<User> users = searchService.findEntitiesBy("name", "Francisca Rasmussen");
 
     assertThat(users, contains(userFrancisca()));
   }
 
   @Test
   void shouldReturnMatchingUserBySharedFlag() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("shared", "false");
+    List<User> users = searchService.findEntitiesBy("shared", "false");
 
     assertThat(users, contains(userFrancisca()));
   }
 
   @Test
   void shouldReturnMatchingUserByTag() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("tags", "Rowe");
+    List<User> users = searchService.findEntitiesBy("tags", "Rowe");
 
     assertThat(users, contains(userRose()));
   }
 
   @Test
   void shouldReturnMatchingAllUsersByActiveState() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("active", "true");
+    List<User> users = searchService.findEntitiesBy("active", "true");
 
     assertThat(users, contains(userFrancisca(), userRose()));
   }
 
   @Test
   void shouldReturnAllUsersOnEmptyInput() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("active", "");
+    List<User> users = searchService.findEntitiesBy("active", "");
 
     assertThat(users, contains(userFrancisca(), userRose()));
   }
 
   @Test
   void shouldReturnEmptyListWhenNotMatched() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("name", "Henry Rasmussen");
+    List<User> users = searchService.findEntitiesBy("name", "Henry Rasmussen");
 
     assertThat(users, is(empty()));
   }
 
   @Test
   void shouldReturnEmptyListForUnknownField() {
-    when(repository.users()).thenReturn(List.of(userFrancisca(), userRose()));
+    when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findUsersBy("idk", "Henry Rasmussen");
+    List<User> users = searchService.findEntitiesBy("idk", "Henry Rasmussen");
 
     assertThat(users, is(empty()));
   }

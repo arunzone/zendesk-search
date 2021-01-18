@@ -2,6 +2,7 @@ package com.zendesk.input;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.zendesk.entity.Organization;
 import com.zendesk.entity.Ticket;
 import com.zendesk.entity.User;
 import org.junit.jupiter.api.Test;
@@ -108,5 +109,29 @@ class FileInputReaderTest {
     });
 
     assertThat(users.stream().findFirst().get(), is(ticket));
+  }
+
+  @Test
+  void shouldReturnFirstOrganization() {
+    FileByPathReader fileByPathReader = mock(FileByPathReader.class);
+    FileInputReader reader = new FileInputReader(fileByPathReader);
+    Organization organization = new Organization();
+    organization.setId(101L);
+    organization.setUrl("http://initech.zendesk.com/api/v2/organizations/101.json");
+    organization.setExternalId("9270ed79-35eb-4a38-a46f-35725197ea8d");
+    organization.setName("Enthaze");
+    organization.setDomainNames(List.of("kage.com", "ecratic.com", "endipin.com", "zentix.com"));
+    organization.setCreatedAt("2016-05-21T11:10:28 -10:00");
+    organization.setDetails("MegaCorp");
+    organization.setSharedTickets(false);
+    organization.setTags(List.of("Fulton", "West", "Rodriguez", "Farley"));
+
+    File userFile = new File("src/test/resources/organizations.json");
+    when(fileByPathReader.fileFromPath("src/test/resources/organizations.json")).thenReturn(userFile);
+
+    List<Organization> users = reader.entitiesFrom("src/test/resources/organizations.json", new TypeReference<>() {
+    });
+
+    assertThat(users.stream().findFirst().get(), is(organization));
   }
 }
