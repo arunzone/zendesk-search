@@ -1,13 +1,11 @@
 package com.zendesk.search;
 
-import com.zendesk.entity.User;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
 public class ExactMatchPredicateFactory<T> {
 
-  public boolean match(User user, String fieldName, String value) {
+  public boolean match(T user, String fieldName, String value) {
     try {
       Field field = user.getClass().getDeclaredField(fieldName);
       field.setAccessible(true);

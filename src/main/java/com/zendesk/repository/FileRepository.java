@@ -1,5 +1,6 @@
 package com.zendesk.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.zendesk.entity.User;
 import com.zendesk.input.FileInputReader;
 
@@ -16,7 +17,8 @@ public class FileRepository implements Repository {
 
   @Override
   public List<User> users() {
-    return fileInputReader.usersFrom(userInputFileName);
+    return fileInputReader.entitiesFrom(userInputFileName, new TypeReference<>() {
+    });
   }
 
   public void setUserInputFileName(String userInputFileName) {
