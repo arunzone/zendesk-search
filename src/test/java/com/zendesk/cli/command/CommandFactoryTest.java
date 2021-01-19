@@ -14,6 +14,30 @@ class CommandFactoryTest {
   }
 
   @Test
+  void shouldReturnOrganizationSelectionCommand() {
+    Command command = new CommandFactory().commandFor("2");
+    assertThat(command.getClass(), is(equalTo(SelectOrganizationCommand.class)));
+  }
+
+  @Test
+  void shouldReturnTicketSelectionCommand() {
+    Command command = new CommandFactory().commandFor("3");
+    assertThat(command.getClass(), is(equalTo(SelectTicketCommand.class)));
+  }
+
+  @Test
+  void shouldReturnSearchSelectionCommand() {
+    Command command = new CommandFactory().commandFor("s");
+    assertThat(command.getClass(), is(equalTo(SearchDisplayCommand.class)));
+  }
+
+  @Test
+  void shouldReturnHelpCommand() {
+    Command command = new CommandFactory().commandFor("h");
+    assertThat(command.getClass(), is(equalTo(HelpCommand.class)));
+  }
+
+  @Test
   void shouldReturnUserSelectCommand() {
     Command command = new CommandFactory().commandFor("1");
     assertThat(command.getClass(), is(equalTo(SelectUserCommand.class)));

@@ -11,6 +11,10 @@ public class ConsoleDisplay {
     System.out.print("Select [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket, s ‣ Search, h ‣ Help]? ");
   }
 
+  public void displaySearchTerm(String entityName) {
+    System.out.printf("Enter %s search term: ", entityName);
+  }
+
   public void displayEntityOptions(Class clazz) {
     clearScreen();
     System.out.printf("%s is selected.\n", clazz.getSimpleName());

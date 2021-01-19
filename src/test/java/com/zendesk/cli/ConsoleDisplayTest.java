@@ -48,4 +48,14 @@ class ConsoleDisplayTest {
     assertThat(text, is("\033[H\033[2J")
     );
   }
+
+  @Test
+  void shouldDisplaySearchTerm() throws Exception {
+    String text = tapSystemOut(() -> {
+      new ConsoleDisplay().displaySearchTerm("User");
+    });
+
+    assertThat(text, is("Enter User search term: ")
+    );
+  }
 }

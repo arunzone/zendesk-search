@@ -12,6 +12,7 @@ public class CommandFactory {
       entry("1", SelectUserCommand.class),
       entry("2", SelectOrganizationCommand.class),
       entry("3", SelectTicketCommand.class),
+      entry("s", SearchDisplayCommand.class),
       entry("h", HelpCommand.class)
   );
   private Context context = new Context();
