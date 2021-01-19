@@ -1,6 +1,6 @@
 package com.zendesk;
 
-import com.zendesk.cli.TypeSelection;
+import com.zendesk.cli.ConsoleDisplay;
 import com.zendesk.cli.command.CommandFactory;
 
 import java.io.BufferedReader;
@@ -10,10 +10,10 @@ import java.io.InputStreamReader;
 public class App {
   public static void main(String[] args) {
 
-    TypeSelection typeSelection = new TypeSelection();
+    ConsoleDisplay consoleDisplay = new ConsoleDisplay();
     CommandFactory commandFactory = new CommandFactory();
     System.out.println("Welcome to Zendesk search\n");
-    typeSelection.displayTypeSelectionTitle();
+    consoleDisplay.displayTypeSelectionTitle();
     boolean proceed = true;
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     try {

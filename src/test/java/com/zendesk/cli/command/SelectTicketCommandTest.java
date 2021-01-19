@@ -1,18 +1,30 @@
 package com.zendesk.cli.command;
 
+import com.zendesk.cli.ConsoleDisplay;
 import com.zendesk.entity.Ticket;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.verify;
 
 class SelectTicketCommandTest {
+  @Mock
+  private ConsoleDisplay consoleDisplay;
+
+  @BeforeEach
+  void setup() {
+    MockitoAnnotations.openMocks(this);
+  }
+
   @Test
   void shouldSetCurrentContextAsTicket() {
     Context context = new Context();
-    SelectTicketCommand command = new SelectTicketCommand(context);
+    SelectTicketCommand command = new SelectTicketCommand(context, consoleDisplay);
 
     command.execute();
 
@@ -20,15 +32,12 @@ class SelectTicketCommandTest {
   }
 
   @Test
-  void shouldPrintOrganizationOptions() throws Exception {
+  void shouldPrintOrganizationOptions() {
     Context context = new Context();
-    SelectTicketCommand command = new SelectTicketCommand(context);
+    SelectTicketCommand command = new SelectTicketCommand(context, consoleDisplay);
 
     command.execute();
-    String text = tapSystemOut(() -> {
-      command.execute();
-    });
 
-    assertThat(text, is("Type 'quit' to exit at any time.\nSelect operation [s ‣ Search, h ‣ Help]? "));
+    verify(consoleDisplay).displayEntityOptions(Ticket.class);
   }
 }
