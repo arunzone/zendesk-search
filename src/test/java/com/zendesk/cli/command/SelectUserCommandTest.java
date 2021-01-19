@@ -1,9 +1,10 @@
 package com.zendesk.cli.command;
 
+import com.zendesk.entity.User;
 import org.junit.jupiter.api.Test;
 
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
-import static com.zendesk.cli.command.Entity.USER;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -16,7 +17,7 @@ class SelectUserCommandTest {
 
     command.execute();
 
-    assertThat(context.getCurrent(), is(USER));
+    assertThat(context.getCurrent(), is(equalTo(User.class)));
   }
 
   @Test
@@ -29,8 +30,6 @@ class SelectUserCommandTest {
       command.execute();
     });
 
-    assertThat(text, is("Type 'quit' to exit at any time.\nSelect 1) Search 2) Help\n"));
-
-    assertThat(context.getCurrent(), is(USER));
+    assertThat(text, is("Type 'quit' to exit at any time.\nSelect operation [s) Search, h) Help]? "));
   }
 }

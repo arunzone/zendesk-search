@@ -8,8 +8,8 @@ import java.util.Optional;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
-public class FieldNameExtractor<T> {
-  public List<String> fieldNamesOf(Class<T> aClass) {
+public class FieldNameExtractor {
+  public <T> List<String> fieldNamesOf(Class<T> aClass) {
     return stream(aClass.getDeclaredFields()).map(field ->
     {
       if (field.isAnnotationPresent(JsonAlias.class)) {

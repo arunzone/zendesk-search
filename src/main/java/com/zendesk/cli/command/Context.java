@@ -2,9 +2,11 @@ package com.zendesk.cli.command;
 
 import lombok.Data;
 
-enum Entity {USER}
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Context {
-  private Entity current;
+  private Class current;
+  private Map<Class, String> fieldNames = new HashMap<>();
 }

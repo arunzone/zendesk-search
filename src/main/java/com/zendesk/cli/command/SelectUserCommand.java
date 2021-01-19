@@ -1,6 +1,7 @@
 package com.zendesk.cli.command;
 
-import static com.zendesk.cli.command.Entity.USER;
+import com.zendesk.entity.User;
+
 
 public class SelectUserCommand implements Command {
 
@@ -12,8 +13,8 @@ public class SelectUserCommand implements Command {
 
   @Override
   public void execute() {
-    context.setCurrent(USER);
+    context.setCurrent(User.class);
     System.out.println("Type 'quit' to exit at any time.");
-    System.out.println("Select 1) Search 2) Help");
+    System.out.print("Select operation [s) Search, h) Help]? ");
   }
 }
