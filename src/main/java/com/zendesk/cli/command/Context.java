@@ -7,6 +7,6 @@ import java.util.Map;
 
 @Data
 public class Context {
-  private Class current;
+  private Class currentEntity;
   private Map<Class, String> fieldNames = new HashMap<>();
 }

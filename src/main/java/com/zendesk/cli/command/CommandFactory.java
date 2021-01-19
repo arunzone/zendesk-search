@@ -8,6 +8,7 @@ import static java.util.Map.entry;
 public class CommandFactory {
   private final Map<String, Class<? extends Command>> entityCommandRegistry = Map.ofEntries(
       entry("1", SelectUserCommand.class),
+      entry("2", SelectOrganizationCommand.class),
       entry("h", HelpCommand.class)
   );
   private Context context = new Context();

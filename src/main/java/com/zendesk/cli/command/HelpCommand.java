@@ -19,22 +19,22 @@ public class HelpCommand implements Command {
   public void execute() {
     System.out.print("\033[H\033[2J");
     System.out.flush();
-    System.out.printf("Search %ss with\n------------------%n", context.getCurrent().getSimpleName());
+    System.out.printf("Search %ss with\n------------------%n", context.getCurrentEntity().getSimpleName());
     System.out.println(fieldNames());
     System.out.print("------------------\nEnter search term: ");
   }
 
   private String fieldNames() {
     Map<Class, String> fieldNamesMap = context.getFieldNames();
-    if (!fieldNamesMap.containsKey(context.getCurrent())) {
-      fieldNamesMap.put(context.getCurrent(), formattedFieldNames());
+    if (!fieldNamesMap.containsKey(context.getCurrentEntity())) {
+      fieldNamesMap.put(context.getCurrentEntity(), formattedFieldNames());
     }
-    return fieldNamesMap.get(context.getCurrent());
+    return fieldNamesMap.get(context.getCurrentEntity());
   }
 
   private String formattedFieldNames() {
     FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
-    List<String> fieldNames = fieldNameExtractor.fieldNamesOf(context.getCurrent());
+    List<String> fieldNames = fieldNameExtractor.fieldNamesOf(context.getCurrentEntity());
     return join("\n", fieldNames);
   }
 }

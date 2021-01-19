@@ -15,6 +15,6 @@ class TypeSelectionTest {
       new TypeSelection().displayTypeSelectionTitle();
     });
 
-    assertThat(text, is("Type 'quit' to exit at any time.\nSelect 1) User 2) Organization 3) Ticket\n"));
+    assertThat(text, is("Type 'quit' to exit at any time.\nSelect [1 ‣ User 2 ‣ Organization 3 ‣ Ticket]? "));
   }
 }

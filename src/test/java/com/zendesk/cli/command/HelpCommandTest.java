@@ -15,7 +15,7 @@ class HelpCommandTest {
   @Test
   void shouldDisplayUserFields() throws Exception {
     Context context = new Context();
-    context.setCurrent(User.class);
+    context.setCurrentEntity(User.class);
     HelpCommand helpCommand = new HelpCommand(context);
 
     String text = tapSystemOut(() -> {

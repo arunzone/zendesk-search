@@ -17,7 +17,7 @@ class SelectUserCommandTest {
 
     command.execute();
 
-    assertThat(context.getCurrent(), is(equalTo(User.class)));
+    assertThat(context.getCurrentEntity(), is(equalTo(User.class)));
   }
 
   @Test
@@ -30,6 +30,6 @@ class SelectUserCommandTest {
       command.execute();
     });
 
-    assertThat(text, is("Type 'quit' to exit at any time.\nSelect operation [s) Search, h) Help]? "));
+    assertThat(text, is("Type 'quit' to exit at any time.\nSelect operation [s ‣ Search, h ‣ Help]? "));
   }
 }
