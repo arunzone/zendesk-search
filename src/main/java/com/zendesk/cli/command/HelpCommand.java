@@ -28,16 +28,21 @@ public class HelpCommand implements Command {
   }
 
   private String fieldNames() {
-    Map<Class, String> fieldNamesMap = context.getFieldNames();
+    Map<Class, List<String>> fieldNamesMap = context.getFieldNames();
     if (!fieldNamesMap.containsKey(context.getCurrentEntity())) {
-      fieldNamesMap.put(context.getCurrentEntity(), formattedFieldNames());
+      fieldNamesMap.put(context.getCurrentEntity(), getFieldNames());
     }
-    return fieldNamesMap.get(context.getCurrentEntity());
+    List<String> fieldNames = fieldNamesMap.get(context.getCurrentEntity());
+    return formatted(fieldNames);
   }
 
-  private String formattedFieldNames() {
+  private String formatted(List<String> fieldNames) {
+    return join("\n", fieldNames);
+  }
+
+  private List<String> getFieldNames() {
     FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
     List<String> fieldNames = fieldNameExtractor.fieldNamesOf(context.getCurrentEntity());
-    return join("\n", fieldNames);
+    return fieldNames;
   }
 }

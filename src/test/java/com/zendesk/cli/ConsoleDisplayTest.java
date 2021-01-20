@@ -15,8 +15,7 @@ class ConsoleDisplayTest {
       new ConsoleDisplay().displayTypeSelectionTitle();
     });
 
-    assertThat(text, is("Type 'quit' to exit at any time.\nSelect [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket]? ")
-    );
+    assertThat(text, is("Type 'quit' to exit at any time.\nSelect [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket]? "));
   }
 
   @Test
@@ -25,8 +24,7 @@ class ConsoleDisplayTest {
       new ConsoleDisplay().displayEntityOptions();
     });
 
-    assertThat(text, is("Type 'quit' to exit at any time.\nSelect [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket, s ‣ Search, h ‣ Help]? ")
-    );
+    assertThat(text, is("Type 'quit' to exit at any time.\nSelect [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket, s ‣ Search, h ‣ Help]? "));
   }
 
   @Test
@@ -35,8 +33,7 @@ class ConsoleDisplayTest {
       new ConsoleDisplay().displayEntityOptions(User.class);
     });
 
-    assertThat(text, is("\033[H\033[2JUser is selected.\nType 'quit' to exit at any time.\nSelect [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket, s ‣ Search, h ‣ Help]? ")
-    );
+    assertThat(text, is("\033[H\033[2JUser is selected.\nType 'quit' to exit at any time.\nSelect [1 ‣ User, 2 ‣ Organization, 3 ‣ Ticket, s ‣ Search, h ‣ Help]? "));
   }
 
   @Test
@@ -45,8 +42,7 @@ class ConsoleDisplayTest {
       new ConsoleDisplay().clearScreen();
     });
 
-    assertThat(text, is("\033[H\033[2J")
-    );
+    assertThat(text, is("\033[H\033[2J"));
   }
 
   @Test
@@ -55,7 +51,15 @@ class ConsoleDisplayTest {
       new ConsoleDisplay().displaySearchTerm("User");
     });
 
-    assertThat(text, is("Enter User search term: ")
-    );
+    assertThat(text, is("Enter User search term: "));
+  }
+
+  @Test
+  void shouldDisplaySearchValue() throws Exception {
+    String text = tapSystemOut(() -> {
+      new ConsoleDisplay().displaySearchValue("User");
+    });
+
+    assertThat(text, is("Enter User search value: "));
   }
 }
