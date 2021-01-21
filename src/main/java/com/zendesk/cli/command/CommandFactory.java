@@ -1,6 +1,8 @@
 package com.zendesk.cli.command;
 
 import com.zendesk.cli.ConsoleDisplay;
+import com.zendesk.cli.report.ConsoleReportGenerator;
+import com.zendesk.cli.report.FieldExtractor;
 import com.zendesk.entity.User;
 import com.zendesk.input.FileByPathReader;
 import com.zendesk.input.FileInputReader;
@@ -17,17 +19,19 @@ import static java.util.Map.entry;
 public class CommandFactory {
   private final Context context = new Context();
   private final ConsoleDisplay consoleDisplay = new ConsoleDisplay();
-  Map<String, Command> entityCommandRegistry = Map.ofEntries(
+  private final Map<String, Command> entityCommandRegistry = Map.ofEntries(
       entry("1", new SelectUserCommand(context, consoleDisplay)),
       entry("2", new SelectOrganizationCommand(context, consoleDisplay)),
       entry("3", new SelectTicketCommand(context, consoleDisplay)),
       entry("s", new SearchDisplayCommand(context, consoleDisplay)),
       entry("h", new HelpCommand(context, consoleDisplay))
   );
-  Map<Class, SearchService> serviceRegistry = Map.ofEntries(
+  private final Map<Class, SearchService> serviceRegistry = Map.ofEntries(
       entry(User.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), "src/test/resources/users.json")))
   );
-  FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
+  private final FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
+  private final FieldExtractor fieldExtractor = new FieldExtractor();
+  private final ConsoleReportGenerator consoleReportGenerator = new ConsoleReportGenerator(consoleDisplay, fieldExtractor);
 
   public Command commandFor(String commandText) {
     if ("quit".equals(commandText)) {
@@ -37,7 +41,7 @@ public class CommandFactory {
       return new SearchInputCommand(commandText, context, consoleDisplay, fieldNameExtractor);
     }
     if (SEARCH_VALUE == context.getCurrentInputType()) {
-      return new SearchCommand(commandText, context, consoleDisplay, serviceRegistry.get(context.getCurrentEntity()));
+      return new SearchCommand(commandText, context, consoleDisplay, serviceRegistry.get(context.getCurrentEntity()), consoleReportGenerator);
     }
     return commandFrom(commandText);
   }
