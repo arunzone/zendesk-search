@@ -19,6 +19,10 @@ public class ConsoleDisplay {
     System.out.printf("Enter %s search value: ", entityName);
   }
 
+  public void displayDivider() {
+    System.out.println("-------------------------");
+  }
+
   public void displayEntityOptions(Class clazz) {
     clearScreen();
     System.out.printf("%s is selected.\n", clazz.getSimpleName());

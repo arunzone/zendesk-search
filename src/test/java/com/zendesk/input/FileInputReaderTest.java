@@ -1,7 +1,6 @@
 package com.zendesk.input;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.zendesk.entity.Organization;
 import com.zendesk.entity.Ticket;
 import com.zendesk.entity.User;
@@ -46,8 +45,7 @@ class FileInputReaderTest {
     File userFile = new File("src/test/resources/users.json");
     when(fileByPathReader.fileFromPath("src/test/resources/users.json")).thenReturn(userFile);
 
-    List<User> users = reader.entitiesFrom("src/test/resources/users.json", new TypeReference<>() {
-    });
+    List<User> users = reader.entitiesFrom("src/test/resources/users.json", User.class);
 
     assertThat(users.stream().findFirst().get(), is(user));
   }
@@ -60,8 +58,7 @@ class FileInputReaderTest {
     File userFile = new File("src/test/resources/users.json");
     when(fileByPathReader.fileFromPath("src/test/resources/users.json")).thenReturn(userFile);
 
-    List<User> users = reader.entitiesFrom("src/test/resources/users.json", new TypeReference<>() {
-    });
+    List<User> users = reader.entitiesFrom("src/test/resources/users.json", User.class);
 
     assertThat(users.size(), is(75));
   }
@@ -74,8 +71,7 @@ class FileInputReaderTest {
     File userFile = new File(getClass().getClassLoader().getResource("tickets.json").getFile());
     when(fileByPathReader.fileFromPath("src/test/resources/users.json")).thenReturn(userFile);
 
-    InvalidInputFileException invalidInputFileException = assertThrows(InvalidInputFileException.class, () -> reader.entitiesFrom("src/test/resources/users.json", new TypeReference<List<User>>() {
-    }));
+    InvalidInputFileException invalidInputFileException = assertThrows(InvalidInputFileException.class, () -> reader.entitiesFrom("src/test/resources/users.json", User.class));
 
     assertThat(invalidInputFileException.getMessage(), is("Unable to read content from file: src/test/resources/users.json"));
   }
@@ -105,8 +101,7 @@ class FileInputReaderTest {
     File userFile = new File("src/test/resources/tickets.json");
     when(fileByPathReader.fileFromPath("src/test/resources/tickets.json")).thenReturn(userFile);
 
-    List<Ticket> users = reader.entitiesFrom("src/test/resources/tickets.json", new TypeReference<>() {
-    });
+    List<Ticket> users = reader.entitiesFrom("src/test/resources/tickets.json", Ticket.class);
 
     assertThat(users.stream().findFirst().get(), is(ticket));
   }
@@ -129,8 +124,7 @@ class FileInputReaderTest {
     File userFile = new File("src/test/resources/organizations.json");
     when(fileByPathReader.fileFromPath("src/test/resources/organizations.json")).thenReturn(userFile);
 
-    List<Organization> users = reader.entitiesFrom("src/test/resources/organizations.json", new TypeReference<>() {
-    });
+    List<Organization> users = reader.entitiesFrom("src/test/resources/organizations.json", Organization.class);
 
     assertThat(users.stream().findFirst().get(), is(organization));
   }

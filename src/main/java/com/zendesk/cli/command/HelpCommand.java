@@ -42,7 +42,6 @@ public class HelpCommand implements Command {
 
   private List<String> getFieldNames() {
     FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
-    List<String> fieldNames = fieldNameExtractor.fieldNamesOf(context.getCurrentEntity());
-    return fieldNames;
+    return fieldNameExtractor.fieldNamesOf(context.getCurrentEntity());
   }
 }

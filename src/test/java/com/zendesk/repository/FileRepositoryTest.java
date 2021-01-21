@@ -1,11 +1,9 @@
 package com.zendesk.repository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.zendesk.entity.User;
 import com.zendesk.input.FileInputReader;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -18,7 +16,7 @@ class FileRepositoryTest {
 
     repository.entities();
 
-    verify(fileInputReader).entitiesFrom(eq("src/test/resources/users.json"), any(TypeReference.class));
+    verify(fileInputReader).entitiesFrom("src/test/resources/users.json", User.class);
   }
 
   @Test
@@ -29,6 +27,6 @@ class FileRepositoryTest {
 
     repository.entities();
 
-    verify(fileInputReader).entitiesFrom(eq("/tmp/users.json"), any(TypeReference.class));
+    verify(fileInputReader).entitiesFrom("/tmp/users.json", User.class);
   }
 }

@@ -1,10 +1,10 @@
 package com.zendesk.input;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -15,11 +15,11 @@ public class FileInputReader {
     this.fileByPathReader = fileByPathReader;
   }
 
-  public <T> T entitiesFrom(String fileName, TypeReference<T> ref) {
+  public <T> List<T> entitiesFrom(String fileName, Class<T> contentClass) {
     try {
-      return new JsonFactory(new ObjectMapper()).
-          createParser(fileByPathReader.fileFromPath(fileName)).
-          readValueAs(ref);
+      ObjectMapper objectMapper = new ObjectMapper();
+      JavaType type = objectMapper.getTypeFactory().constructParametricType(List.class, contentClass);
+      return objectMapper.readValue(fileByPathReader.fileFromPath(fileName), type);
     } catch (IOException e) {
       throw new InvalidInputFileException(format("Unable to read content from file: %s", fileName));
     }

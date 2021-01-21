@@ -2,6 +2,6 @@ package com.zendesk.repository;
 
 import java.util.List;
 
-public interface Repository<T> {
-  List<T> entities();
+public interface Repository {
+  <T> List<T> entities();
 }

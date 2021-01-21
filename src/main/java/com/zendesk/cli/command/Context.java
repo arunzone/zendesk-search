@@ -13,6 +13,5 @@ public class Context {
   private Class currentEntity;
   private InputType currentInputType = NONE;
   private String fieldName;
-  private String fieldValue;
   private Map<Class, List<String>> fieldNames = new HashMap<>();
 }
