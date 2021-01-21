@@ -12,7 +12,7 @@ class FileRepositoryTest {
   @Test
   void shouldRetrieveUsersFromDefaultTestFile() {
     FileInputReader fileInputReader = mock(FileInputReader.class);
-    FileRepository repository = new FileRepository(fileInputReader, "src/test/resources/users.json");
+    FileRepository repository = new FileRepository(fileInputReader, User.class, "src/test/resources/users.json");
 
     repository.entities();
 
@@ -22,7 +22,7 @@ class FileRepositoryTest {
   @Test
   void shouldRetrieveUsersFromGivenFile() {
     FileInputReader fileInputReader = mock(FileInputReader.class);
-    FileRepository repository = new FileRepository(fileInputReader, "src/test/resources/users.json");
+    FileRepository repository = new FileRepository(fileInputReader, User.class, "src/test/resources/users.json");
     repository.setUserInputFileName("/tmp/users.json");
 
     repository.entities();

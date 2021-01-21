@@ -2,7 +2,6 @@ package com.zendesk.cli.command;
 
 import com.zendesk.cli.ConsoleDisplay;
 import com.zendesk.cli.report.ConsoleReportGenerator;
-import com.zendesk.entity.User;
 import com.zendesk.search.SearchService;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class SearchCommand implements Command {
   @Override
   public void execute() {
     context.setCurrentInputType(NONE);
-    List<User> matchingEntities = searchService.findEntitiesBy(context.getFieldName(), value);
+    List<Object> matchingEntities = searchService.findEntitiesBy(context.getFieldName(), value);
     consoleReportGenerator.report(matchingEntities);
     consoleDisplay.displayEntityOptions(context.getCurrentEntity());
   }
