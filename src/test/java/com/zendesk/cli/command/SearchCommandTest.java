@@ -53,6 +53,6 @@ class SearchCommandTest {
 
     InOrder inOrder = inOrder(consoleReportGenerator, consoleDisplay);
     inOrder.verify(consoleReportGenerator).report(matchingUsers);
-    inOrder.verify(consoleDisplay).displayEntityOptions(User.class);
+    inOrder.verify(consoleDisplay).displayEntityOptionsWithoutClear(User.class);
   }
 }

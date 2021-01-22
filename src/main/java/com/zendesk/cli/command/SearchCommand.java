@@ -28,7 +28,7 @@ public class SearchCommand implements Command {
     context.setCurrentInputType(NONE);
     List<Object> matchingEntities = searchService.findEntitiesBy(context.getFieldName(), value);
     consoleReportGenerator.report(matchingEntities);
-    consoleDisplay.displayEntityOptions(context.getCurrentEntity());
+    consoleDisplay.displayEntityOptionsWithoutClear(context.getCurrentEntity());
   }
 
 }

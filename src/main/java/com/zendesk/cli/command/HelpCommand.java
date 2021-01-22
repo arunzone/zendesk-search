@@ -1,12 +1,9 @@
 package com.zendesk.cli.command;
 
 import com.zendesk.cli.ConsoleDisplay;
-import com.zendesk.search.FieldNameExtractor;
+import com.zendesk.search.FieldNameAssociationFactory;
 
-import java.util.List;
-import java.util.Map;
-
-import static java.lang.String.join;
+import java.util.Set;
 
 public class HelpCommand implements Command {
 
@@ -20,28 +17,8 @@ public class HelpCommand implements Command {
 
   @Override
   public void execute() {
-    consoleDisplay.clearScreen();
-    System.out.printf("Search %ss with\n------------------\n", context.getCurrentEntity().getSimpleName());
-    System.out.println(fieldNames());
-    System.out.println("------------------");
-    consoleDisplay.displayEntityOptions();
+    Set<String> fieldNames = FieldNameAssociationFactory.fieldNameMapFor(context.getCurrentEntity()).keySet();
+    consoleDisplay.displayHelp(fieldNames, context.getCurrentEntity().getSimpleName());
   }
 
-  private String fieldNames() {
-    Map<Class, List<String>> fieldNamesMap = context.getFieldNames();
-    if (!fieldNamesMap.containsKey(context.getCurrentEntity())) {
-      fieldNamesMap.put(context.getCurrentEntity(), getFieldNames());
-    }
-    List<String> fieldNames = fieldNamesMap.get(context.getCurrentEntity());
-    return formatted(fieldNames);
-  }
-
-  private String formatted(List<String> fieldNames) {
-    return join("\n", fieldNames);
-  }
-
-  private List<String> getFieldNames() {
-    FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
-    return fieldNameExtractor.fieldNamesOf(context.getCurrentEntity());
-  }
 }

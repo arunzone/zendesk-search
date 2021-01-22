@@ -2,50 +2,48 @@ package com.zendesk.cli.command;
 
 import com.zendesk.cli.ConsoleDisplay;
 import com.zendesk.entity.User;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 class HelpCommandTest {
 
   @Test
-  void shouldDisplayUserFields() throws Exception {
+  void shouldDisplayUserFields() {
     Context context = new Context();
     ConsoleDisplay consoleDisplay = mock(ConsoleDisplay.class);
     context.setCurrentEntity(User.class);
     HelpCommand helpCommand = new HelpCommand(context, consoleDisplay);
 
-    String text = tapSystemOut(() -> {
-      helpCommand.execute();
-    });
-    String userFields = List.of("_id",
-        "url",
-        "external_id",
-        "name",
-        "alias",
-        "created_at",
-        "active",
-        "verified",
-        "shared",
-        "locale",
-        "timezone",
-        "last_login_at",
-        "email",
-        "phone",
-        "signature",
-        "organization_id",
-        "tags",
-        "suspended",
-        "role")
-        .stream()
-        .collect(Collectors.joining("\n"));
-    assertThat(text, is(String.format("Search Users with\n------------------\n%s\n------------------\n", userFields)));
+    helpCommand.execute();
 
+    verify(consoleDisplay).displayHelp(
+        argThat(Matchers.allOf(
+            hasItem(equalTo("_id")),
+            hasItem(equalTo("url")),
+            hasItem(equalTo("external_id")),
+            hasItem(equalTo("name")),
+            hasItem(equalTo("alias")),
+            hasItem(equalTo("created_at")),
+            hasItem(equalTo("active")),
+            hasItem(equalTo("verified")),
+            hasItem(equalTo("shared")),
+            hasItem(equalTo("locale")),
+            hasItem(equalTo("timezone")),
+            hasItem(equalTo("last_login_at")),
+            hasItem(equalTo("email")),
+            hasItem(equalTo("phone")),
+            hasItem(equalTo("signature")),
+            hasItem(equalTo("organization_id")),
+            hasItem(equalTo("tags")),
+            hasItem(equalTo("suspended")),
+            hasItem(equalTo("role")))
+        ), eq("User"));
   }
 }

@@ -42,7 +42,7 @@ public class CommandFactory {
       return new ExitCommand();
     }
     if (SEARCH_TERM == context.getCurrentInputType()) {
-      return new SearchInputCommand(commandText, context, consoleDisplay, fieldNameExtractor);
+      return new SearchInputCommand(commandText, context, consoleDisplay);
     }
     if (SEARCH_VALUE == context.getCurrentInputType()) {
       return new SearchCommand(commandText, context, consoleDisplay, serviceRegistry.get(context.getCurrentEntity()), consoleReportGenerator);

@@ -1,10 +1,9 @@
 package com.zendesk.cli.command;
 
 import com.zendesk.cli.ConsoleDisplay;
-import com.zendesk.search.FieldNameExtractor;
+import com.zendesk.search.FieldNameAssociationFactory;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import static com.zendesk.cli.command.InputType.SEARCH_VALUE;
 
@@ -12,13 +11,11 @@ public class SearchInputCommand implements Command {
   private final Context context;
   private final ConsoleDisplay consoleDisplay;
   private final String fieldName;
-  private FieldNameExtractor fieldNameExtractor;
 
-  public SearchInputCommand(String fieldName, Context context, ConsoleDisplay consoleDisplay, FieldNameExtractor fieldNameExtractor) {
+  public SearchInputCommand(String fieldName, Context context, ConsoleDisplay consoleDisplay) {
     this.context = context;
     this.consoleDisplay = consoleDisplay;
     this.fieldName = fieldName;
-    this.fieldNameExtractor = fieldNameExtractor;
   }
 
   @Override
@@ -34,19 +31,7 @@ public class SearchInputCommand implements Command {
   }
 
   private boolean valid(String fieldName) {
-    prepareFieldNames();
-    List<String> fieldNames = context.getFieldNames().get(context.getCurrentEntity());
+    Set<String> fieldNames = FieldNameAssociationFactory.fieldNameMapFor(context.getCurrentEntity()).keySet();
     return fieldNames.contains(fieldName);
-  }
-
-  private void prepareFieldNames() {
-    Map<Class, List<String>> fieldNamesMap = context.getFieldNames();
-    if (!fieldNamesMap.containsKey(context.getCurrentEntity())) {
-      fieldNamesMap.put(context.getCurrentEntity(), getFieldNames());
-    }
-  }
-
-  private List<String> getFieldNames() {
-    return fieldNameExtractor.fieldNamesOf(context.getCurrentEntity());
   }
 }
