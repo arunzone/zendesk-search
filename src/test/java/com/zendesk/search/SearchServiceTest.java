@@ -2,6 +2,7 @@ package com.zendesk.search;
 
 import com.zendesk.entity.User;
 import com.zendesk.repository.Repository;
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -13,6 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 class SearchServiceTest {
@@ -32,7 +34,7 @@ class SearchServiceTest {
   void shouldReturnMatchingUserById() {
     when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findEntitiesBy("id", "4");
+    List<User> users = searchService.findEntitiesBy("_id", "4");
 
     assertThat(users, contains(userRose()));
   }
@@ -95,9 +97,9 @@ class SearchServiceTest {
   void shouldReturnEmptyListForUnknownField() {
     when(repository.entities()).thenReturn(List.of(userFrancisca(), userRose()));
 
-    List<User> users = searchService.findEntitiesBy("idk", "Henry Rasmussen");
+    InvalidFieldNameException invalidFieldNameException = assertThrows(InvalidFieldNameException.class, () -> searchService.findEntitiesBy("idk", "Henry Rasmussen"));
 
-    assertThat(users, is(empty()));
+    assertThat(invalidFieldNameException.getMessage(), Is.is("Invalid field name: idk"));
   }
 
   private User userFrancisca() {

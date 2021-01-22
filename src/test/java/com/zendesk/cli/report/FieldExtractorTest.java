@@ -1,13 +1,19 @@
 package com.zendesk.cli.report;
 
 import com.zendesk.entity.User;
+import com.zendesk.search.FieldNameExtractor;
+import com.zendesk.search.InvalidFieldException;
+import lombok.SneakyThrows;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FieldExtractorTest {
 
@@ -34,7 +40,8 @@ public class FieldExtractorTest {
     user.setSuspended(true);
     user.setRole("end-user");
 
-    FieldExtractor fieldExtractor = new FieldExtractor();
+    FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
+    FieldExtractor fieldExtractor = new FieldExtractor(fieldNameExtractor);
 
     Set<ReportField> fields = fieldExtractor.fieldsFor(user);
 
@@ -82,7 +89,8 @@ public class FieldExtractorTest {
     user.setSuspended(true);
     user.setRole("end-user");
 
-    FieldExtractor fieldExtractor = new FieldExtractor();
+    FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
+    FieldExtractor fieldExtractor = new FieldExtractor(fieldNameExtractor);
 
     Set<ReportField> fields = fieldExtractor.fieldsFor(user);
 
@@ -106,5 +114,16 @@ public class FieldExtractorTest {
         new ReportField("_id", "4"),
         new ReportField("alias", "Mr Cardenas"),
         new ReportField("role", "end-user")));
+  }
+
+  @SneakyThrows
+  @Test
+  void shouldReturnNullIfFieldHasAccessRestriction() {
+    User user = new User();
+    FieldExtractor fieldExtractor = new FieldExtractor(null);
+
+    InvalidFieldException invalidFieldException = assertThrows(InvalidFieldException.class, () -> fieldExtractor.fieldValueFrom(user, user.getClass().getDeclaredField("id")));
+
+    assertThat(invalidFieldException.getMessage(), is("Problem accessing field value"));
   }
 }

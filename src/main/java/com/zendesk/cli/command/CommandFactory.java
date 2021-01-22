@@ -28,14 +28,14 @@ public class CommandFactory {
       entry("s", new SearchDisplayCommand(context, consoleDisplay)),
       entry("h", new HelpCommand(context, consoleDisplay))
   );
+  private final FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
+  private final FieldExtractor fieldExtractor = new FieldExtractor(fieldNameExtractor);
+  private final ConsoleReportGenerator consoleReportGenerator = new ConsoleReportGenerator(consoleDisplay, fieldExtractor);
   private final Map<Class, SearchService> serviceRegistry = Map.ofEntries(
       entry(User.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), User.class, "src/test/resources/users.json"))),
       entry(Organization.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), Organization.class, "src/test/resources/organizations.json"))),
       entry(Ticket.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), Ticket.class, "src/test/resources/tickets.json")))
   );
-  private final FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
-  private final FieldExtractor fieldExtractor = new FieldExtractor();
-  private final ConsoleReportGenerator consoleReportGenerator = new ConsoleReportGenerator(consoleDisplay, fieldExtractor);
 
   public Command commandFor(String commandText) {
     if ("quit".equals(commandText)) {
