@@ -4,6 +4,7 @@ import com.zendesk.cli.ConsoleDisplay;
 import com.zendesk.cli.report.ConsoleReportGenerator;
 import com.zendesk.cli.report.FieldExtractor;
 import com.zendesk.entity.Organization;
+import com.zendesk.entity.Ticket;
 import com.zendesk.entity.User;
 import com.zendesk.input.FileByPathReader;
 import com.zendesk.input.FileInputReader;
@@ -29,7 +30,8 @@ public class CommandFactory {
   );
   private final Map<Class, SearchService> serviceRegistry = Map.ofEntries(
       entry(User.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), User.class, "src/test/resources/users.json"))),
-      entry(Organization.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), Organization.class, "src/test/resources/organizations.json")))
+      entry(Organization.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), Organization.class, "src/test/resources/organizations.json"))),
+      entry(Ticket.class, new SearchService(new FileRepository(new FileInputReader(new FileByPathReader()), Ticket.class, "src/test/resources/tickets.json")))
   );
   private final FieldNameExtractor fieldNameExtractor = new FieldNameExtractor();
   private final FieldExtractor fieldExtractor = new FieldExtractor();
