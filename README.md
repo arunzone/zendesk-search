@@ -108,5 +108,5 @@ Immediately the results were displayed in console
 
 ### Practices
 
-Had pre-push git hook which run `mvn clean verify` before pushing so every push ensure better quality code Used `jcoco`
-code coverage tool to fail build when there is any quality issue
+Had pre-push git hook which run `mvn clean verify` before pushing so every push ensure better quality code   
+Used `jacoco` code coverage tool to fail build when there is any quality issue
