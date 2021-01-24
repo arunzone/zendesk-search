@@ -10,6 +10,6 @@ public class InvalidCommand implements Command {
 
   @Override
   public void execute() {
-    System.out.println(String.format("Invalid command <%s>", commandText));
+    System.err.println(String.format("Invalid command <%s>", commandText));
   }
 }

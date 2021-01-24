@@ -4,21 +4,32 @@ import com.zendesk.cli.ArgumentReader;
 import com.zendesk.cli.ConsoleDisplay;
 import com.zendesk.cli.SearchServiceFactory;
 import com.zendesk.cli.command.CommandFactory;
+import com.zendesk.search.exception.InvalidFieldException;
+import com.zendesk.search.exception.InvalidFieldNameException;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class App {
   public static void main(String[] args) {
     CommandFactory commandFactory = initializeFactory(args);
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     try {
-      while (true) {
-        String command = br.readLine();
-        commandFactory.commandFor(command).execute();
-      }
+      process(bufferedReader, commandFactory);
     } catch (Exception exception) {
-      System.out.println(exception.getMessage());
+      System.err.println(exception.getMessage());
+    }
+  }
+
+  private static void process(BufferedReader bufferedReader, CommandFactory commandFactory) throws IOException {
+    while (true) {
+      String command = bufferedReader.readLine();
+      try {
+        commandFactory.commandFor(command).execute();
+      } catch (InvalidFieldException | InvalidFieldNameException exception) {
+        System.err.println(exception.getMessage());
+      }
     }
   }
 

@@ -160,7 +160,6 @@
                   <element>CLASS</element>
                   <excludes>
                     <exclude>com.zendesk.App</exclude>
-                    <exclude>com.zendesk.cli.command.ExitCommand</exclude>
                     <exclude>com.zendesk.cli.command.Context</exclude>
                     <exclude>com.zendesk.cli.search.ExactMatchPredicateFactory</exclude>
                   </excludes>
