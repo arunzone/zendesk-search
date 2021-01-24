@@ -39,6 +39,15 @@ class ArgumentReaderTest {
   }
 
   @Test
+  void shouldNotReadUserInputFileName() {
+    ArgumentReader argumentReader = new ArgumentReader();
+
+    InputFileName inputFileName = argumentReader.read(new String[]{"-u"});
+
+    assertThat(inputFileName.getUserFileName(), is("src/test/resources/users.json"));
+  }
+
+  @Test
   void shouldReadOrganizationInputFileName() {
     ArgumentReader argumentReader = new ArgumentReader();
 
@@ -48,12 +57,31 @@ class ArgumentReaderTest {
   }
 
   @Test
+  void shouldNotReadOrganizationInputFileName() {
+    ArgumentReader argumentReader = new ArgumentReader();
+
+    InputFileName inputFileName = argumentReader.read(new String[]{"-o"});
+
+    assertThat(inputFileName.getOrganizationFileName(), is("src/test/resources/organizations.json"));
+  }
+
+
+  @Test
   void shouldReadTicketInputFileName() {
     ArgumentReader argumentReader = new ArgumentReader();
 
     InputFileName inputFileName = argumentReader.read(new String[]{"-t", "user/file/name"});
 
     assertThat(inputFileName.getTicketFileName(), is("user/file/name"));
+  }
+
+  @Test
+  void shouldNotReadTicketInputFileName() {
+    ArgumentReader argumentReader = new ArgumentReader();
+
+    InputFileName inputFileName = argumentReader.read(new String[]{"-t"});
+
+    assertThat(inputFileName.getTicketFileName(), is("src/test/resources/tickets.json"));
   }
 
 }
