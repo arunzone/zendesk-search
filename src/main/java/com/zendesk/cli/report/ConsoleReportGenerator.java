@@ -19,7 +19,7 @@ public class ConsoleReportGenerator {
   public <T> void report(List<T> result) {
     result.forEach(entity -> {
       Set<ReportField> reportFields = fieldExtractor.fieldsFor(entity);
-      reportFields.stream()
+      reportFields.stream().parallel()
           .map(field -> format("%-20s %s", field.getName(), field.getValue()))
           .forEach(System.out::println);
       consoleDisplay.displayDivider();

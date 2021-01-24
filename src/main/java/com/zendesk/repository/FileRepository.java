@@ -4,11 +4,12 @@ import com.zendesk.input.FileInputReader;
 
 import java.util.List;
 
-public class FileRepository implements Repository {
+public class FileRepository<T> implements Repository {
 
   private final FileInputReader fileInputReader;
   private final Class entityClass;
-  private String fileName;
+  private final String fileName;
+  private List<T> entities;
 
   public FileRepository(FileInputReader fileInputReader, Class entityClass, String fileName) {
     this.fileInputReader = fileInputReader;
@@ -16,11 +17,10 @@ public class FileRepository implements Repository {
     this.fileName = fileName;
   }
 
-  public <T> List<T> entities() {
-    return (List<T>) fileInputReader.entitiesFrom(fileName, entityClass);
-  }
-
-  public void setUserInputFileName(String userInputFileName) {
-    this.fileName = userInputFileName;
+  public List<T> entities() {
+    if (entities == null) {
+      entities = (List<T>) fileInputReader.entitiesFrom(fileName, entityClass);
+    }
+    return entities;
   }
 }

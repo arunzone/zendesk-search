@@ -18,15 +18,4 @@ class FileRepositoryTest {
 
     verify(fileInputReader).entitiesFrom("src/test/resources/users.json", User.class);
   }
-
-  @Test
-  void shouldRetrieveUsersFromGivenFile() {
-    FileInputReader fileInputReader = mock(FileInputReader.class);
-    FileRepository repository = new FileRepository(fileInputReader, User.class, "src/test/resources/users.json");
-    repository.setUserInputFileName("/tmp/users.json");
-
-    repository.entities();
-
-    verify(fileInputReader).entitiesFrom("/tmp/users.json", User.class);
-  }
 }

@@ -27,7 +27,7 @@ public class SearchService {
     if (associatedFieldName == null) {
       throw new InvalidFieldNameException(format("Invalid field name: %s", fieldName));
     }
-    return entities.stream().filter(entity ->
+    return entities.stream().parallel().filter(entity ->
         new ExactMatchPredicateFactory<T>().match(entity, associatedFieldName, value)
     ).collect(toList());
   }
