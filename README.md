@@ -105,3 +105,8 @@ Immediately the results were displayed in console
 ### pmd
 
 `mvn pmd::pmd`
+
+### Practices
+
+Had pre-push git hook which run `mvn clean verify` before pushing so every push ensure better quality code Used `jcoco`
+code coverage tool to fail build when there is any quality issue
