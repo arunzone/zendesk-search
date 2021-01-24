@@ -1,6 +1,7 @@
 package com.zendesk.search;
 
 import com.zendesk.repository.Repository;
+import com.zendesk.search.exception.InvalidFieldNameException;
 
 import java.util.List;
 

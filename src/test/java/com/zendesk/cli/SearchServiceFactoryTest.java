@@ -9,9 +9,10 @@ import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
 
 class SearchServiceFactoryTest {
-  private final SearchServiceFactory searchServiceFactory = new SearchServiceFactory("src/test/resources/users.json", "src/test/resources/organizations.json", "src/test/resources/tickets.json");
+  private final SearchServiceFactory searchServiceFactory = new SearchServiceFactory(mock(InputFileName.class));
 
   @Test
   void shouldReturnSearchServiceForUser() {

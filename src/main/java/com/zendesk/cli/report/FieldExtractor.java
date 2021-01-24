@@ -1,7 +1,7 @@
 package com.zendesk.cli.report;
 
 import com.zendesk.search.FieldNameExtractor;
-import com.zendesk.search.InvalidFieldException;
+import com.zendesk.search.exception.InvalidFieldException;
 
 import java.util.Set;
 import java.util.stream.Collectors;

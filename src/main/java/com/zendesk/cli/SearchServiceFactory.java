@@ -15,10 +15,10 @@ import static java.util.Map.entry;
 public class SearchServiceFactory {
   private final Map<Class, SearchService> serviceRegistry;
 
-  public SearchServiceFactory(String usersFileName, String organizationsFileName, String ticketsFileName) {
-    FileRepository userRepository = new FileRepository(new FileInputReader(new FileByPathReader()), User.class, usersFileName);
-    FileRepository organizationRepository = new FileRepository(new FileInputReader(new FileByPathReader()), Organization.class, organizationsFileName);
-    FileRepository ticketRepository = new FileRepository(new FileInputReader(new FileByPathReader()), Ticket.class, ticketsFileName);
+  public SearchServiceFactory(InputFileName inputFileName) {
+    FileRepository userRepository = new FileRepository(new FileInputReader(new FileByPathReader()), User.class, inputFileName.getUserFileName());
+    FileRepository organizationRepository = new FileRepository(new FileInputReader(new FileByPathReader()), Organization.class, inputFileName.getOrganizationFileName());
+    FileRepository ticketRepository = new FileRepository(new FileInputReader(new FileByPathReader()), Ticket.class, inputFileName.getTicketFileName());
 
     serviceRegistry = Map.ofEntries(
         entry(User.class, new SearchService(userRepository)),

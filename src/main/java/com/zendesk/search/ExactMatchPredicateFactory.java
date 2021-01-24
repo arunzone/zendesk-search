@@ -1,5 +1,7 @@
 package com.zendesk.search;
 
+import com.zendesk.search.exception.InvalidFieldNameException;
+
 import java.lang.reflect.Field;
 import java.util.List;
 

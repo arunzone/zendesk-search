@@ -28,6 +28,10 @@ public class ConsoleDisplay {
     System.out.println("-------------------------");
   }
 
+  public void displayException(Exception exception) {
+    System.out.println(exception.getMessage());
+  }
+
   public void displayEntityOptions(Class clazz) {
     clearScreen();
     displayEntityOptionsWithoutClear(clazz);

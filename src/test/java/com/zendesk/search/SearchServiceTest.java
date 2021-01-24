@@ -2,6 +2,7 @@ package com.zendesk.search;
 
 import com.zendesk.entity.User;
 import com.zendesk.repository.Repository;
+import com.zendesk.search.exception.InvalidFieldNameException;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

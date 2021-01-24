@@ -1,4 +1,4 @@
-package com.zendesk.search;
+package com.zendesk.search.exception;
 
 public class InvalidFieldException extends RuntimeException {
   public InvalidFieldException(String message) {

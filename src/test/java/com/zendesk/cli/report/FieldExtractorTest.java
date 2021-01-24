@@ -2,7 +2,7 @@ package com.zendesk.cli.report;
 
 import com.zendesk.entity.User;
 import com.zendesk.search.FieldNameExtractor;
-import com.zendesk.search.InvalidFieldException;
+import com.zendesk.search.exception.InvalidFieldException;
 import lombok.SneakyThrows;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;

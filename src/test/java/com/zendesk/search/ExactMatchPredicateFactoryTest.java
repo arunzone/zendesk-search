@@ -1,6 +1,7 @@
 package com.zendesk.search;
 
 import com.zendesk.entity.User;
+import com.zendesk.search.exception.InvalidFieldNameException;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
